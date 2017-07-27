@@ -63,11 +63,11 @@ function getOrderBook(currency) {
     if (res) {
       const asksPrice = res.asks[0][0];
       const asksAmount = res.asks[0][1];
-      $('.asks').html(`Sells: $${asksPrice} / ${asksAmount} Orders`);
+      $('.asks').html(`Sells: $${asksPrice} / ${round(asksAmount)} Orders`);
 
       const bidsPrice = res.bids[0][0];
       const bidsAmount = res.bids[0][1];
-      $('.bids').html(`Buys: $${bidsPrice} / ${bidsAmount} Orders`);
+      $('.bids').html(`Buys: $${bidsPrice} / ${round(bidsAmount)} Orders`);
     }
   });
 }
