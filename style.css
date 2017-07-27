@@ -50,14 +50,33 @@ p {
   font-weight: bold;
 }
 
+.askbids {
+  background: white;
+  padding: 5px;
+  margin: 5px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.bids {
+  color: green;
+}
+
+.asks {
+  color: red;
+}
+
 .bids,
 .asks,
 .daily-stats {
-  margin: 5px;
-  font-style: italic;
-  font-weight: bold;
+  margin: 3px;
   font-family: arial;
-  color: ghostwhite;
+}
+
+.daily-stats {
+  color: white;
+  font-size: 14px;
+  text-align: center;
 }
 
 .price-target-container {
