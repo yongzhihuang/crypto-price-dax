@@ -80,7 +80,12 @@ function get24HourStats(currency) {
   $.ajax(`https://api.gdax.com/products/${currency}/stats`)
   .then((res) => {
     if (res) {
-      $('.daily-stats').html(`24 Hour: Open: ${round(res.open)}, High: ${round(res.high)}, Low: ${round(res.low)}, Volume: ${round(res.volume)}`);
+      $('.daily-stats').html(`
+        <p><u><b>24 Hour Stats</b></u></p>
+        <p><b>Open:</b> ${round(res.open)}</p>
+        <p><b>High:</b> ${round(res.high)}</p>
+        <p><b>Low:</b> ${round(res.low)}</p>
+        <p><b>Volume:</b> ${round(res.volume)}</p>`);
     }
   });  
 }
