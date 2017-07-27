@@ -50,8 +50,13 @@ p {
   font-weight: bold;
 }
 
-.refresh {
-  color: white;
+.bids,
+.asks {
+  margin: 5px;
+  font-style: italic;
+  font-weight: bold;
+  font-family: arial;
+  color: ghostwhite;
 }
 
 .price-target-container {

@@ -47,5 +47,27 @@ function getEthPrice(currency) {
       let priceTarget = window.localStorage.priceTarget || 500;
       const pricePercentage = parseFloat((res.price/priceTarget) * 100).toFixed(2);
       $('.target').html(`Price Target: $${priceTarget} (${pricePercentage}%)`);
-   })
+    });
+
+    getOrderBook(currency);
+}
+
+function getOrderBook(currency) {
+  if (!currency) {
+    currency = $('.price-options option:selected').text() || 'eth-usd';
+    $('.currency-type').html(`${currency.toUpperCase()} Price`);
+   }
+
+   $.ajax(`https://api.gdax.com/products/${currency}/book`)
+   .then((res) => {
+      if (res) {
+        const asksPrice = res.asks[0][0];
+        const asksAmount = res.asks[0][1];
+        $('.asks').html(`Asks: $${asksPrice} / ${asksAmount} Orders`);
+
+        const bidsPrice = res.bids[0][0];
+        const bidsAmount = res.bids[0][1];
+        $('.bids').html(`Bids: $${bidsPrice} / ${bidsAmount} Orders`);
+      }
+    });
 }
