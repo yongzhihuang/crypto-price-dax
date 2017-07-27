@@ -51,7 +51,8 @@ p {
 }
 
 .bids,
-.asks {
+.asks,
+.daily-stats {
   margin: 5px;
   font-style: italic;
   font-weight: bold;

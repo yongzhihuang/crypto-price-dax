@@ -39,7 +39,7 @@ function getEthPrice(currency) {
    $.ajax(`https://api.gdax.com/products/${currency}/ticker`)
    .then((res) => {
       if (res) {
-        const ethPrice = `$${parseFloat(Math.round(res.price * 100) / 100).toFixed(2)}`;
+        const ethPrice = `$${round(res.price)}`;
         $('.price').html(ethPrice);
         document.title = ethPrice;
       }
@@ -50,24 +50,41 @@ function getEthPrice(currency) {
     });
 
     getOrderBook(currency);
+    get24HourStats(currency);
 }
 
 function getOrderBook(currency) {
   if (!currency) {
     currency = $('.price-options option:selected').text() || 'eth-usd';
-    $('.currency-type').html(`${currency.toUpperCase()} Price`);
-   }
+  }
 
-   $.ajax(`https://api.gdax.com/products/${currency}/book`)
-   .then((res) => {
-      if (res) {
-        const asksPrice = res.asks[0][0];
-        const asksAmount = res.asks[0][1];
-        $('.asks').html(`Asks: $${asksPrice} / ${asksAmount} Orders`);
+  $.ajax(`https://api.gdax.com/products/${currency}/book`)
+  .then((res) => {
+    if (res) {
+      const asksPrice = res.asks[0][0];
+      const asksAmount = res.asks[0][1];
+      $('.asks').html(`Sells: $${asksPrice} / ${asksAmount} Orders`);
 
-        const bidsPrice = res.bids[0][0];
-        const bidsAmount = res.bids[0][1];
-        $('.bids').html(`Bids: $${bidsPrice} / ${bidsAmount} Orders`);
-      }
-    });
+      const bidsPrice = res.bids[0][0];
+      const bidsAmount = res.bids[0][1];
+      $('.bids').html(`Buys: $${bidsPrice} / ${bidsAmount} Orders`);
+    }
+  });
+}
+
+function get24HourStats(currency) {
+  if (!currency) {
+    currency = $('.price-options option:selected').text() || 'eth-usd';
+  }
+
+  $.ajax(`https://api.gdax.com/products/${currency}/stats`)
+  .then((res) => {
+    if (res) {
+      $('.daily-stats').html(`24 Hour: Open: ${round(res.open)}, High: ${round(res.high)}, Low: ${round(res.low)}, Volume: ${round(res.volume)}`);
+    }
+  });  
+}
+
+function round(value) {
+  return parseFloat(Math.round(value * 100) / 100).toFixed(2)
 }
